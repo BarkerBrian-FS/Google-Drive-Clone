@@ -16,9 +16,8 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { creatAccount } from "@/lib/actions/user.actions";
-import OtpModal from "@/components/OtpModal";
-// import OtpModal from "@/components/OTPModal";
+import { createAccount } from "@/lib/actions/user.actions";
+import OtpModal from "./OtpModal";
 
 type FormType = "sign-in" | "sign-up";
 
@@ -53,7 +52,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
     try {
       const user =
         type === "sign-up"
-          ? await creatAccount({
+          ? await createAccount({
               fullName: values.fullName || "",
               email: values.email,
             })
@@ -157,7 +156,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
         </form>
       </Form>
 
-      {true && (
+      {accountId && (
         <OtpModal email={form.getValues("email")} accountId={accountId} />
       )}
     </>
