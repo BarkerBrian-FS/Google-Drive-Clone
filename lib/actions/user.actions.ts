@@ -4,6 +4,7 @@ import { createAdminClient } from "../appwrite";
 import { appwriteConfig } from "../appwrite/config";
 import { parseStringify } from "../utils";
 import { cookies } from "next/headers";
+import { avatarPlaceholderUrl } from "@/constants";
 
 // New client account flow
 // 1. User enters full name and email
@@ -66,7 +67,7 @@ export const createAccount = async ({
       {
         fullName,
         email,
-        avatar: "/images/avatar.png",
+        avatar: avatarPlaceholderUrl,
         accountId,
       }
     );
