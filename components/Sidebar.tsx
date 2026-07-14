@@ -66,8 +66,9 @@ const Sidebar = () => {
         <Image
           src={avatarPlaceholderUrl}
           alt="user avatar"
-          width={50}
-          height={50}
+          width={44}
+          height={44}
+          className="sidebar-user-avatar"
         />
       </div>
     </aside>
