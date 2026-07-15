@@ -8,9 +8,14 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { navItems } from "@/constants";
+import Link from "next/link";
+import FileUploader from "./FileUploader";
+import { Button } from "./ui/button";
 
 interface Props {
   ownerId: string;
@@ -62,9 +67,51 @@ const MobileNavigation = ({
                 <p className="caption">{email}</p>
               </div>
             </div>
-            <Separator />
+            <Separator className="mb-4 bg-light-200/20" />
           </SheetTitle>
-          <SheetDescription>This action cannot be undone.</SheetDescription>
+          <nav className="mobile-nav">
+            <ul className="mobile-nav-list">
+              {navItems.map(({ url, name, icon }) => (
+                <Link key={name} href={url} className="lg:w-full">
+                  <li
+                    className={cn(
+                      "mobile-nav-item",
+                      pathname === url && "shad-active"
+                    )}
+                  >
+                    <Image
+                      src={icon}
+                      alt={name}
+                      width={24}
+                      height={24}
+                      className={cn(
+                        "nav-icon",
+                        pathname === url && "nav-icon-active"
+                      )}
+                    />
+                    <p>{name}</p>
+                  </li>
+                </Link>
+              ))}
+            </ul>
+          </nav>
+          <Separator className="my-5 bg-light-200/20" />
+          <div className="flex-col justify-between gap-5 pb-5">
+            <FileUploader />
+            <Button
+              type="submit"
+              className="mobile-sign-out-button"
+              onClick={() => {}}
+            >
+              <Image
+                src="/assets/icons/logout.svg"
+                alt="logout button"
+                width={24}
+                height={24}
+              />
+              <p>Logout</p>
+            </Button>
+          </div>
         </SheetContent>
       </Sheet>
     </header>
