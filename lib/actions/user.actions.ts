@@ -116,6 +116,20 @@ export const getCurrentUser = async () => {
   return parseStringify(user.documents[0]);
 };
 
+export const signInUser = async ({ email }: { email: string }) => {
+  try {
+    const existingUser = await getUserByEmail(email);
+    if (existingUser) {
+      await sendEmailOTP({ email });
+      return parseStringify({ accountId: existingUser.accountId });
+    }
+
+    return parseStringify({ accountId: null, error: "user not found" });
+  } catch (error) {
+    handleError(error, "Failed to sign in user");
+  }
+};
+
 export const signOutUser = async () => {
   const { account } = await createSessionClient();
   try {
