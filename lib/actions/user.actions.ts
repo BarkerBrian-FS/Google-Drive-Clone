@@ -5,6 +5,7 @@ import { appwriteConfig } from "../appwrite/config";
 import { parseStringify } from "../utils";
 import { cookies } from "next/headers";
 import { avatarPlaceholderUrl } from "@/constants";
+import { redirect } from "next/navigation";
 
 // New client account flow
 // 1. User enters full name and email
@@ -113,4 +114,16 @@ export const getCurrentUser = async () => {
   if (user.total < 0) return null;
 
   return parseStringify(user.documents[0]);
+};
+
+export const signOutUser = async () => {
+  const { account } = await createSessionClient();
+  try {
+    await account.deleteSession("current");
+    (await cookies()).delete("appwrite-session");
+  } catch (error) {
+    console.error("Error logging out:", error);
+  } finally {
+    redirect("/sign-in");
+  }
 };
