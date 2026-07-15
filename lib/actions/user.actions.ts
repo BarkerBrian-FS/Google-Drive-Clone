@@ -112,7 +112,7 @@ export const getCurrentUser = async () => {
     [Query.equal("accountId", result.$id)]
   );
   if (user.total < 0) return null;
-
+  console.log("DATABASE USER:", user);
   return parseStringify(user.documents[0]);
 };
 
