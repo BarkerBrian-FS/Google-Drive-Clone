@@ -4,14 +4,13 @@ import React, { useCallback, useState } from "react";
 
 import { useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
-//import { cn, convertFileToUrl, getFileType } from "@/lib/utils";
+import { cn, convertFileToUrl, getFileType } from "@/lib/utils";
 import Image from "next/image";
-//import Thumbnail from "@/components/Thumbnail";
+import Thumbnail from "@/components/Thumbnail";
 import { MAX_FILE_SIZE } from "@/constants";
 import { useToast } from "@/hooks/use-toast";
-//import { uploadFile } from "@/lib/actions/file.actions";
+import { uploadFile } from "@/lib/actions/file.actions";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
 
 interface Props {
   ownerId: string;
