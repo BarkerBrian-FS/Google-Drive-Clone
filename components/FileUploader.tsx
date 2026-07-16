@@ -6,9 +6,9 @@ import { useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
 import { cn, convertFileToUrl, getFileType } from "@/lib/utils";
 import Image from "next/image";
-import Thumbnail from "@/components/Thumbnail";
+import Thumbnail from "./Thumbnail";
 import { MAX_FILE_SIZE } from "@/constants";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { uploadFile } from "@/lib/actions/file.actions";
 import { usePathname } from "next/navigation";
 
@@ -20,7 +20,6 @@ interface Props {
 
 const FileUploader = ({ ownerId, accountId, className }: Props) => {
   const path = usePathname();
-  const { toast } = useToast();
   const [files, setFiles] = useState<File[]>([]);
 
   const onDrop = useCallback(
@@ -33,15 +32,12 @@ const FileUploader = ({ ownerId, accountId, className }: Props) => {
             prevFiles.filter((f) => f.name !== file.name)
           );
 
-          return toast({
-            description: (
-              <p className="body-2 text-white">
-                <span className="font-semibold">{file.name}</span> is too large.
-                Max file size is 50MB.
-              </p>
-            ),
-            className: "error-toast",
-          });
+          return toast.error(
+            `${file.name} is too large. Max file size is 50MB.`,
+            {
+              className: "error-toast",
+            }
+          );
         }
 
         return uploadFile({ file, ownerId, accountId, path }).then(
