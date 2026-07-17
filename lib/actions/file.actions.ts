@@ -2,6 +2,7 @@
 
 import {
   DeleteFileProps,
+  GetFilesProps,
   RenameFileProps,
   UpdateFileUsersProps,
   UploadFileProps,
@@ -19,13 +20,15 @@ const handleError = (error: unknown, message: string) => {
   throw error;
 };
 
-const createQueries = async (currentUser: Models.Document) => {
+const createQueries = async (currentUser: Models.Document, types: string[]) => {
   const queries = [
     Query.or([
       Query.equal("owner", [currentUser.$id]),
       Query.contains("users", [currentUser.email]),
     ]),
   ];
+
+  if (types.length > 0) queries.push(Query.equal("type", types));
 
   return queries;
 };
@@ -82,14 +85,14 @@ export const uploadFile = async ({
   }
 };
 
-export const getFiles = async () => {
+export const getFiles = async ({ types = [] }: GetFilesProps) => {
   const { databases } = await createAdminClient();
 
   try {
     const currentUser = await getCurrentUser();
     if (!currentUser) throw new Error("user not found");
 
-    const queries = await createQueries(currentUser);
+    const queries = await createQueries(currentUser, types);
 
     console.log({ currentUser, queries });
     const files = await databases.listDocuments(

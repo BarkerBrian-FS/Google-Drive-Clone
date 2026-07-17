@@ -8,7 +8,9 @@ import React from "react";
 const page = async ({ params }: SearchParamProps) => {
   const type = ((await params)?.type as string) || "";
 
-  const files = await getFiles();
+  const types = getFileTypeParams(type) as FileType[];
+
+  const files = await getFiles({ types}:{types});
 
   return (
     <div className="page-container">
