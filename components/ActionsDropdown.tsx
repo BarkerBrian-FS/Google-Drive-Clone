@@ -26,7 +26,7 @@ import { constructDownloadUrl } from "@/lib/utils";
 import { Input } from "./ui/input";
 import { renameFile } from "@/lib/actions/file.actions";
 import { usePathname } from "next/navigation";
-import { FileDetails } from "./ActionsModalContent";
+import { FileDetails, ShareInput } from "./ActionsModalContent";
 
 const ActionsDropdown = ({ file }: { file: Models.Document }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,6 +34,7 @@ const ActionsDropdown = ({ file }: { file: Models.Document }) => {
   const [action, setAction] = useState<ActionType | null>(null);
   const [name, setName] = useState(file.name);
   const [isLoading, setIsLoading] = useState(false);
+  const [emails, setEmails] = useState([]);
 
   const path = usePathname();
 
@@ -42,7 +43,7 @@ const ActionsDropdown = ({ file }: { file: Models.Document }) => {
     setIsDropDownOpen(false);
     setAction(null);
     setName(file.name);
-    // setEmails([])
+    setEmails([]);
   };
 
   const handleAction = async () => {
