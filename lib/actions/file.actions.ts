@@ -153,7 +153,7 @@ export const updateFileUsers = async ({
   }
 };
 
-export const deleteFileUsers = async ({
+export const deleteFile = async ({
   fileId,
   bucketFileId,
   path,
