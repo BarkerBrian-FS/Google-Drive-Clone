@@ -2,7 +2,7 @@
 
 declare type FileType = "document" | "image" | "video" | "audio" | "other";
 
-declare interface ActionType {
+export declare interface ActionType {
   label: string;
   icon: string;
   value: string;
