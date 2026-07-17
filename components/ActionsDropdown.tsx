@@ -26,6 +26,7 @@ import { constructDownloadUrl } from "@/lib/utils";
 import { Input } from "./ui/input";
 import { renameFile } from "@/lib/actions/file.actions";
 import { usePathname } from "next/navigation";
+import { FileDetails } from "./ActionsModalContent";
 
 const ActionsDropdown = ({ file }: { file: Models.Document }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
