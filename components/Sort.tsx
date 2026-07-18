@@ -22,7 +22,7 @@ const Sort = () => {
 
   return (
     <Select onValueChange={handleSort} defaultValue={sortTypes[0].value}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-[100px] bg-white">
         <SelectValue placeholder={sortTypes[0].value} />
       </SelectTrigger>
       <SelectContent className="sort-select-content bg-white">
