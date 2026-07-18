@@ -18,7 +18,7 @@ const Search = () => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const path = usePathname();
-  const [debouncedQuery] = useDebounce(query, 500);
+  const [debouncedQuery] = useDebounce(query, 300);
 
   useEffect(() => {
     const fetchFiles = async () => {
