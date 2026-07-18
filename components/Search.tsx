@@ -3,7 +3,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Input } from "./ui/input";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { getFiles } from "@/lib/actions/file.actions";
 import { Models } from "node-appwrite";
 import Thumbnail from "./Thumbnail";
@@ -15,6 +15,7 @@ const Search = () => {
   const searchQuery = searchParams.get("query");
   const [results, setResults] = useState<Models.Document[]>([]);
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchFiles = async () => {
@@ -32,6 +33,13 @@ const Search = () => {
     }
   }, [searchQuery]);
 
+  const handleClickItem = (file: Models.Document) => {
+    setOpen(false);
+    setResults([]);
+    router.push(
+      `/${file.type === "video" || file.type === "audio" ? "media" : file.type + "s"}?query = ${query}`
+    );
+  };
   return (
     <div className="search">
       <div className="search-input-wrapper">
