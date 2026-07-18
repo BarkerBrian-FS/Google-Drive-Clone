@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { getFiles } from "@/lib/actions/file.actions";
 import { Models } from "node-appwrite";
 import Thumbnail from "./Thumbnail";
+import FormattedDateTime from "./FormattedDateTime";
 
 const Search = () => {
   const [query, setQuery] = useState("");
@@ -50,18 +51,26 @@ const Search = () => {
           <ul className="search-result">
             {results.length > 0 ? (
               results.map((file) => (
-                <li key={file.$id} className="flex items-center">
-                  <div className="flex cursor-pointer gap-4">
+                <li
+                  key={file.$id}
+                  className="flex items-center justify-between"
+                >
+                  <div className="flex cursor-pointer items-center gap-5">
                     <Thumbnail
                       type={file.type}
                       extension={file.extension}
                       url={file.url}
                       className="size-9 min-w-9"
                     />
+                    <p className="subtitle-2 line-clamp-1 text-light-100">
+                      {file.name}
+                    </p>
                   </div>
-                  <p className="subtitle-2 line-clamp-1 text-light-100">
-                    {file.name}
-                  </p>
+
+                  <FormattedDateTime
+                    date={file.$createdAt}
+                    className="caption line-clamp-1 text-light-200"
+                  />
                 </li>
               ))
             ) : (
