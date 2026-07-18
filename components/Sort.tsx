@@ -16,13 +16,13 @@ const Sort = () => {
   const router = useRouter();
   const path = usePathname();
 
-  const handleSort = () => {
+  const handleSort = (value: string) => {
     router.push(`${path}?sort=${value}`);
   };
 
   return (
     <Select onValueChange={handleSort} defaultValue={sortTypes[0].value}>
-      <SelectTrigger className="w-[100px] bg-white">
+      <SelectTrigger className="w-[200px]  border-none bg-white">
         <SelectValue placeholder={sortTypes[0].value} />
       </SelectTrigger>
       <SelectContent className="sort-select-content bg-white">
